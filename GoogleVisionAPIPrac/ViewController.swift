@@ -12,7 +12,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        VisionAPIManager.shared.webDetection()
+        if let imageData = UIImage(named: "testImage2")?.jpegData(compressionQuality: 1) {
+            VisionAPIManager.shared.webDetection(imageData: imageData)
+        }
     }
 
 
