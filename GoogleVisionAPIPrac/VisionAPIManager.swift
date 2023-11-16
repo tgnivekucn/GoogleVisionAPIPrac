@@ -137,7 +137,7 @@ class VisionAPIManager {
         task.resume()
     }
 
-    func webDetection1() {
+    func webDetection(urlString: String) {
         guard let googleCloudKey = googleCloudKey else { return }
 
         let requestParams = WebDetectionRequestParams(requests: [
