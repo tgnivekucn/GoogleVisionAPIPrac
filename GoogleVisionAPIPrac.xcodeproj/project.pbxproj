@@ -19,6 +19,7 @@
 		0A74491D2AF1773100EE296A /* VisionAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74491C2AF1773100EE296A /* VisionAPIManager.swift */; };
 		0A74491F2AF1794900EE296A /* WebDetectionResponseStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74491E2AF1794900EE296A /* WebDetectionResponseStruct.swift */; };
 		0A7449212AF1851100EE296A /* googleCloudKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A7449202AF1851100EE296A /* googleCloudKey.plist */; };
+		0AFD37BD2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD37BC2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		0A74491C2AF1773100EE296A /* VisionAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionAPIManager.swift; sourceTree = "<group>"; };
 		0A74491E2AF1794900EE296A /* WebDetectionResponseStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDetectionResponseStruct.swift; sourceTree = "<group>"; };
 		0A7449202AF1851100EE296A /* googleCloudKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = googleCloudKey.plist; sourceTree = "<group>"; };
+		0AFD37BC2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkDetectionResponseStruct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				0A7448F02AF1771300EE296A /* ViewController.swift */,
 				0A74491C2AF1773100EE296A /* VisionAPIManager.swift */,
 				0A74491E2AF1794900EE296A /* WebDetectionResponseStruct.swift */,
+				0AFD37BC2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift */,
 				0A7448F22AF1771300EE296A /* Main.storyboard */,
 				0A7448F52AF1771400EE296A /* Assets.xcassets */,
 				0A7448F72AF1771400EE296A /* LaunchScreen.storyboard */,
@@ -271,6 +274,7 @@
 				0A74491F2AF1794900EE296A /* WebDetectionResponseStruct.swift in Sources */,
 				0A7448F12AF1771300EE296A /* ViewController.swift in Sources */,
 				0A7448ED2AF1771300EE296A /* AppDelegate.swift in Sources */,
+				0AFD37BD2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift in Sources */,
 				0A74491D2AF1773100EE296A /* VisionAPIManager.swift in Sources */,
 				0A7448EF2AF1771300EE296A /* SceneDelegate.swift in Sources */,
 			);

@@ -73,6 +73,8 @@ class VisionAPIManager {
         
         let requests: [Request]
     }
+    
+    // MARK: - Web detection
     func webDetection(imageData: Data) {
         guard let googleCloudKey = googleCloudKey else { return }
 
@@ -200,6 +202,70 @@ class VisionAPIManager {
         task.resume()
     }
     
+    // MARK: - Landmark detection
+    func landmarkDetection(imageData: Data) {
+        guard let googleCloudKey = googleCloudKey else { return }
+        guard let url = URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleCloudKey)") else { return }
+        let parameters: [String: Any] = [
+            "requests": [
+                "image": [
+                    "content":  imageData.base64EncodedString()
+                ],
+                "features": [
+                    [
+                        "type": "LANDMARK_DETECTION",
+                        "maxResults": 1
+                    ]
+                ]
+            ]
+        ]
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        // Encode your request parameters to JSON
+        do {
+            // Convert the dictionary to JSON data
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            request.httpBody = jsonData
+        } catch {
+            print("Error converting dictionary to JSON: \(error)")
+        }
+
+        // Perform the request
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            // Handle errors
+            if let error = error {
+                print("Error making POST request: \(error.localizedDescription)")
+                return
+            }
+
+            // Handle the response
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                print("Invalid response or status code")
+                return
+            }
+
+            // Parse the response data
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            do {
+                let responseData = try JSONDecoder().decode(LandmarkDetectionResponseStruct.self, from: data)
+                // Use the parsed data
+                print("Response result: \(responseData)")
+            } catch {
+                print("Error decoding JSON response: \(error)")
+            }
+        }
+
+        // Start the task
+        task.resume()
+    }
+
     // MARK: Utilities
     private func getCloudKey() -> String? {
         // Define the name of your custom plist file

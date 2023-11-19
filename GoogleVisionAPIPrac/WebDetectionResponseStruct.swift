@@ -9,16 +9,16 @@ import Foundation
 
 // MARK: - WebDetectionResponseStruct
 struct WebDetectionResponseStruct: Codable {
-    let responses: [Response]?
+    let responses: [WebDetectionResponse]?
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        responses = try container.decodeIfPresent([Response].self, forKey: .responses)
+        responses = try container.decodeIfPresent([WebDetectionResponse].self, forKey: .responses)
     }
 }
 
 // MARK: - Response
-struct Response: Codable {
+struct WebDetectionResponse: Codable {
     let webDetection: WebDetection?
     
     init(from decoder: Decoder) throws {
