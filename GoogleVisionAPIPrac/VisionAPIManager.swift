@@ -44,51 +44,21 @@ class VisionAPIManager {
         return getCloudKey()
     }
 
-    struct WebDetectionRequestParams: Codable {
-        struct Request: Codable {
-            struct Feature: Codable {
-                let type: String
-            }
-
-            struct Image: Codable {
-                struct Source: Codable {
-                    let imageUri: String
-                }
-                let source: Source?
-                let content: String?
-
-            }
-
-            struct ImageContext: Codable {
-                struct WebDetectionParams: Codable {
-                    let includeGeoResults: Bool
-                }
-                let webDetectionParams: WebDetectionParams
-            }
-            
-            let features: [Feature]
-            let image: Image
-            let imageContext: ImageContext
-        }
-        
-        let requests: [Request]
-    }
-    
     // MARK: - Web detection
     func webDetection(imageData: Data) {
         guard let googleCloudKey = googleCloudKey else { return }
 
-        let requestParams = WebDetectionRequestParams(requests: [
-            WebDetectionRequestParams.Request(
+        let requestParams = WebDetectionParams(requests: [
+            WebDetectionParams.Request(
                 features: [
-                    WebDetectionRequestParams.Request.Feature(type: "WEB_DETECTION")
+                    WebDetectionParams.Request.Feature(type: "WEB_DETECTION")
                 ],
-                image: WebDetectionRequestParams.Request.Image(
+                image: WebDetectionParams.Request.Image(
                     source: nil,
                     content: imageData.base64EncodedString()
                 ),
-                imageContext: WebDetectionRequestParams.Request.ImageContext(
-                    webDetectionParams: WebDetectionRequestParams.Request.ImageContext.WebDetectionParams(includeGeoResults: true)
+                imageContext: WebDetectionParams.Request.ImageContext(
+                    webDetectionParams: WebDetectionParams.Request.ImageContext.WebDetectionParams(includeGeoResults: true)
                 )
             )
         ])
@@ -142,16 +112,16 @@ class VisionAPIManager {
     func webDetection(urlString: String) {
         guard let googleCloudKey = googleCloudKey else { return }
 
-        let requestParams = WebDetectionRequestParams(requests: [
-            WebDetectionRequestParams.Request(
+        let requestParams = WebDetectionParams(requests: [
+            WebDetectionParams.Request(
                 features: [
-                    WebDetectionRequestParams.Request.Feature(type: "WEB_DETECTION")
+                    WebDetectionParams.Request.Feature(type: "WEB_DETECTION")
                 ],
-                image: WebDetectionRequestParams.Request.Image(
-                    source: WebDetectionRequestParams.Request.Image.Source(imageUri: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Taipei_Arena_20230529.jpg/2880px-Taipei_Arena_20230529.jpg"), content: nil
+                image: WebDetectionParams.Request.Image(
+                    source: WebDetectionParams.Request.Image.Source(imageUri: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Taipei_Arena_20230529.jpg/2880px-Taipei_Arena_20230529.jpg"), content: nil
                 ),
-                imageContext: WebDetectionRequestParams.Request.ImageContext(
-                    webDetectionParams: WebDetectionRequestParams.Request.ImageContext.WebDetectionParams(includeGeoResults: true)
+                imageContext: WebDetectionParams.Request.ImageContext(
+                    webDetectionParams: WebDetectionParams.Request.ImageContext.WebDetectionParams(includeGeoResults: true)
                 )
             )
         ])
@@ -206,31 +176,79 @@ class VisionAPIManager {
     func landmarkDetection(imageData: Data) {
         guard let googleCloudKey = googleCloudKey else { return }
         guard let url = URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleCloudKey)") else { return }
-        let parameters: [String: Any] = [
-            "requests": [
-                "image": [
-                    "content":  imageData.base64EncodedString()
-                ],
-                "features": [
-                    [
-                        "type": "LANDMARK_DETECTION",
-                        "maxResults": 1
-                    ]
-                ]
-            ]
-        ]
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         // Encode your request parameters to JSON
+        let requestParams = LandmarkParams(requests:
+                                LandmarkParams.WebDetectionParameterRequests(
+                                    image: LandmarkParams.WebDetectionParameterImage(source: nil, content: imageData.base64EncodedString()),
+                                            features: [LandmarkParams.WebDetectionParameterFeature(type: "LANDMARK_DETECTION", maxResults: 1)]
+                                )
+                            )
+
         do {
-            // Convert the dictionary to JSON data
-            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            let jsonData = try JSONEncoder().encode(requestParams)
             request.httpBody = jsonData
         } catch {
-            print("Error converting dictionary to JSON: \(error)")
+            print("Error encoding JSON: \(error)")
+        }
+        // Perform the request
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            // Handle errors
+            if let error = error {
+                print("Error making POST request: \(error.localizedDescription)")
+                return
+            }
+
+            // Handle the response
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                print("Invalid response or status code")
+                return
+            }
+
+            // Parse the response data
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            do {
+                let responseData = try JSONDecoder().decode(LandmarkDetectionResponseStruct.self, from: data)
+                // Use the parsed data
+                print("Response result: \(responseData)")
+            } catch {
+                print("Error decoding JSON response: \(error)")
+            }
+        }
+
+        // Start the task
+        task.resume()
+    }
+
+    func landmarkDetection(urlString: String) {
+        guard let googleCloudKey = googleCloudKey else { return }
+        guard let url = URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleCloudKey)") else { return }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        // Encode your request parameters to JSON
+        let requestParams = LandmarkParams(requests:
+                                LandmarkParams.WebDetectionParameterRequests(
+                                    image: LandmarkParams.WebDetectionParameterImage(source: LandmarkParams.Source(imageURI: urlString), content: nil),
+                                    features: [LandmarkParams.WebDetectionParameterFeature(type: "LANDMARK_DETECTION", maxResults: 1)]
+                                )
+                            )
+
+        do {
+            let jsonData = try JSONEncoder().encode(requestParams)
+            request.httpBody = jsonData
+        } catch {
+            print("Error encoding JSON: \(error)")
         }
 
         // Perform the request

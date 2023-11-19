@@ -13,9 +13,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         // 1. Web detection by image data
-        if let imageData = UIImage(named: "testImage3")?.jpegData(compressionQuality: 1) {
-            VisionAPIManager.shared.webDetection(imageData: imageData)
-        }
+//        if let imageData = UIImage(named: "testImage3")?.jpegData(compressionQuality: 1) {
+//            VisionAPIManager.shared.webDetection(imageData: imageData)
+//        }
         
         // 2. Web detection by image url
 //        let imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Taipei_Arena_20230529.jpg/2880px-Taipei_Arena_20230529.jpg"
@@ -25,6 +25,10 @@ class ViewController: UIViewController {
 //        if let imageData = UIImage(named: "testImage4")?.jpegData(compressionQuality: 1) {
 //            VisionAPIManager.shared.landmarkDetection(imageData: imageData)
 //        }
+        
+        // 4. Landmark detection by image data
+        let imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Taipei_Arena_20230529.jpg/2880px-Taipei_Arena_20230529.jpg"
+        VisionAPIManager.shared.landmarkDetection(urlString: imageURL)
     }
 }
 

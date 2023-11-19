@@ -20,6 +20,8 @@
 		0A74491F2AF1794900EE296A /* WebDetectionResponseStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74491E2AF1794900EE296A /* WebDetectionResponseStruct.swift */; };
 		0A7449212AF1851100EE296A /* googleCloudKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A7449202AF1851100EE296A /* googleCloudKey.plist */; };
 		0AFD37BD2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD37BC2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift */; };
+		0AFD37BF2B0A60D500E7F37F /* LandmarkParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD37BE2B0A60D500E7F37F /* LandmarkParams.swift */; };
+		0AFD37C52B0A67CB00E7F37F /* WebDetectionParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD37C42B0A67CB00E7F37F /* WebDetectionParams.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		0A74491E2AF1794900EE296A /* WebDetectionResponseStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDetectionResponseStruct.swift; sourceTree = "<group>"; };
 		0A7449202AF1851100EE296A /* googleCloudKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = googleCloudKey.plist; sourceTree = "<group>"; };
 		0AFD37BC2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkDetectionResponseStruct.swift; sourceTree = "<group>"; };
+		0AFD37BE2B0A60D500E7F37F /* LandmarkParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkParams.swift; sourceTree = "<group>"; };
+		0AFD37C42B0A67CB00E7F37F /* WebDetectionParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDetectionParams.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,12 +111,11 @@
 		0A7448EB2AF1771300EE296A /* GoogleVisionAPIPrac */ = {
 			isa = PBXGroup;
 			children = (
+				0AFD37C32B0A67AD00E7F37F /* struct */,
 				0A7448EC2AF1771300EE296A /* AppDelegate.swift */,
 				0A7448EE2AF1771300EE296A /* SceneDelegate.swift */,
 				0A7448F02AF1771300EE296A /* ViewController.swift */,
 				0A74491C2AF1773100EE296A /* VisionAPIManager.swift */,
-				0A74491E2AF1794900EE296A /* WebDetectionResponseStruct.swift */,
-				0AFD37BC2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift */,
 				0A7448F22AF1771300EE296A /* Main.storyboard */,
 				0A7448F52AF1771400EE296A /* Assets.xcassets */,
 				0A7448F72AF1771400EE296A /* LaunchScreen.storyboard */,
@@ -137,6 +140,17 @@
 				0A74490F2AF1771400EE296A /* GoogleVisionAPIPracUITestsLaunchTests.swift */,
 			);
 			path = GoogleVisionAPIPracUITests;
+			sourceTree = "<group>";
+		};
+		0AFD37C32B0A67AD00E7F37F /* struct */ = {
+			isa = PBXGroup;
+			children = (
+				0AFD37C42B0A67CB00E7F37F /* WebDetectionParams.swift */,
+				0A74491E2AF1794900EE296A /* WebDetectionResponseStruct.swift */,
+				0AFD37BE2B0A60D500E7F37F /* LandmarkParams.swift */,
+				0AFD37BC2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift */,
+			);
+			path = struct;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,7 +287,9 @@
 			files = (
 				0A74491F2AF1794900EE296A /* WebDetectionResponseStruct.swift in Sources */,
 				0A7448F12AF1771300EE296A /* ViewController.swift in Sources */,
+				0AFD37BF2B0A60D500E7F37F /* LandmarkParams.swift in Sources */,
 				0A7448ED2AF1771300EE296A /* AppDelegate.swift in Sources */,
+				0AFD37C52B0A67CB00E7F37F /* WebDetectionParams.swift in Sources */,
 				0AFD37BD2B0A56EE00E7F37F /* LandmarkDetectionResponseStruct.swift in Sources */,
 				0A74491D2AF1773100EE296A /* VisionAPIManager.swift in Sources */,
 				0A7448EF2AF1771300EE296A /* SceneDelegate.swift in Sources */,
