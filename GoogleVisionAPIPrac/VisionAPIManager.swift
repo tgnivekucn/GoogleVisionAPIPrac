@@ -10,34 +10,7 @@ import Foundation
 Google cloud vision api for image search:
 https://cloud.google.com/vision/docs/detecting-web
 https://cloud.google.com/vision/docs/reference/rest
-
-
-Input parameters:
-{
-  "requests": [
-    {
-      "features": [
-        {
-          "type": "WEB_DETECTION"
-        }
-      ],
-      "image": {
-        "source": {
-          "imageUri": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Taipei_Arena_20230529.jpg/2880px-Taipei_Arena_20230529.jpg"
-        }
-      },
-      "imageContext": {
-        "webDetectionParams": {
-          "includeGeoResults": true
-        }
-      }
-    }
-  ]
-}
 */
-/*
- Convert Json to Decode Struct
- */
 class VisionAPIManager {
     static var shared = VisionAPIManager()
     private var googleCloudKey: String? {
